@@ -79,7 +79,7 @@ answerButtons.forEach((button) => {
         } else {
             button.classList.add('incorrect');
             resultMessage.textContent = `残念！正解は「${currentPoint}」です。
-            ${currentHand.yaku.map(y => y.name).join(", ")}はこの点数になります。`;
+            ${currentHand.yaku.map(y => y.name).join(", ")}は${currentPoint}になります。`;
             resultMessage.classList.add('failure');
         }
 

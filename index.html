@@ -4,81 +4,106 @@
 <head>
   <meta charset="utf-8">
   <title>麻雀点数計算暗記アプリ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
   <style>
     :root {
-      font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
-      color: #222;
-      background-color: #fafafa;
+      --bg: #fafafa;
+      --fg: #222;
+      --card: #fff;
+      --muted: #f2f5fb;
+      --brand: #1b75bb;
+      --brand-strong: #14619c;
+      --ok-bg: #e5f6e0;
+      --ok-fg: #1a7f37;
+      --ok-bd: #a4d7a0;
+      --ng-bg: #fdecea;
+      --ng-fg: #c62828;
+      --ng-bd: #f6b8b5;
+      --bd: #ddd;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --fg: #e7e7e7;
+        --card: #141821;
+        --muted: #1d2431;
+        --brand: #4aa3ff;
+        --brand-strong: #2a83df;
+        --ok-bg: #113a1e;
+        --ok-fg: #9ae6b4;
+        --ok-bd: #1f6f3b;
+        --ng-bg: #3b1211;
+        --ng-fg: #ffb4b0;
+        --ng-bd: #7a2a27;
+        --bd: #2a3140;
+        --shadow: 0 10px 40px rgba(0, 0, 0, .4);
+      }
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
-      margin: 0;
+      margin: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
       padding: 24px 16px 64px;
       display: flex;
       justify-content: center;
+      line-height: 1.6;
     }
 
     main {
       max-width: 960px;
       width: 100%;
-      background: #fff;
+      background: var(--card);
       border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-      padding: 48px clamp(16px, 4vw, 48px);
+      padding: clamp(24px, 3.5vw, 48px);
     }
 
     h1 {
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      margin: 0 0 32px;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      margin: 0 0 24px;
       text-align: center;
+      line-height: 1.25;
     }
 
-    .score-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 40px;
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .score-table th,
-    .score-table td {
-      border: 1px solid #ddd;
-      text-align: center;
-      padding: clamp(12px, 2vw, 16px);
-    }
-
-    .score-table thead {
-      background: #f2f5fb;
-      font-weight: 600;
+    h2 {
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+      margin: 0 0 16px;
     }
 
     .actions {
       text-align: center;
-      margin-top: 48px;
-      margin-bottom: 24px;
+      margin: 24px 0;
     }
 
     button {
-      font-size: 1.1rem;
-      padding: 12px 32px;
-      border-radius: 999px;
-      background: #1b75bb;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      min-height: 48px;
+      /* 親指サイズ */
+      border-radius: 14px;
+      background: var(--brand);
       color: #fff;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     button:hover {
-      background: #14619c;
+      background: var(--brand-strong);
       transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(27, 117, 187, 0.25);
     }
 
     button:active {
       transform: translateY(0);
-      box-shadow: none;
     }
 
     section {
@@ -90,80 +115,150 @@
     }
 
     .question-list {
-      margin: 0 0 32px 0;
+      margin: 0 0 20px;
       padding-left: 20px;
-      font-size: 1.05rem;
+      font-size: clamp(1rem, 2.6vw, 1.1rem);
     }
 
+    /* 解答ボタングリッド：画面幅に合わせて自動段組 */
     .answer-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+      /* スマホは2列 */
+      gap: 12px;
+    }
+
+    @media (min-width: 540px) {
+      .answer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .answer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .answer-button {
-      background: #fff;
-      border: 2px solid #222;
-      color: #222;
-      font-size: 1.1rem;
+      background: transparent;
+      border: 2px solid var(--fg);
+      color: var(--fg);
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
       padding: 16px 12px;
       border-radius: 12px;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      transition: background .2s ease, color .2s ease, transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+      min-height: 56px;
+      width: 100%;
     }
 
     .answer-button:hover {
-      background: #1b75bb;
+      background: var(--brand);
       color: #fff;
       transform: translateY(-1px);
-      box-shadow: 0 10px 16px rgba(27, 117, 187, 0.2);
     }
 
     .answer-button.correct {
-      border-color: #1b75bb;
-      background: #e3f0fb;
+      border-color: var(--brand);
+      background: color-mix(in oklab, var(--brand) 15%, transparent);
     }
 
     .answer-button.incorrect {
       border-color: #d93a35;
-      background: #fce8e6;
+      background: color-mix(in oklab, #d93a35 15%, transparent);
     }
 
     .result-message {
-      margin: 24px 0;
-      padding: 16px 20px;
+      margin: 20px 0;
+      padding: 14px 16px;
       border-radius: 12px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
     }
 
     .result-message.success {
-      background: #e5f6e0;
-      color: #1a7f37;
-      border: 1px solid #a4d7a0;
+      background: var(--ok-bg);
+      color: var(--ok-fg);
+      border: 1px solid var(--ok-bd);
     }
 
     .result-message.failure {
-      background: #fdecea;
-      color: #c62828;
-      border: 1px solid #f6b8b5;
+      background: var(--ng-bg);
+      color: var(--ng-fg);
+      border: 1px solid var(--ng-bd);
     }
 
-    .highlight {
-      background: #d7ecff;
+    /* スコア表（折りたたみ + 横スクロール） */
+    .score-guide {
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      background: color-mix(in oklab, var(--muted) 60%, transparent);
+      margin: 16px 0 8px;
+      overflow: hidden;
     }
 
-    @media (max-width: 600px) {
+    .score-guide>summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 600;
+      user-select: none;
+      outline: none;
+    }
 
-      .score-table th,
-      .score-table td {
-        font-size: 0.85rem;
-        padding: 12px;
+    .score-guide>summary::marker {
+      display: none;
+    }
+
+    .score-guide[open]>summary {
+      border-bottom: 1px solid var(--bd);
+    }
+
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(0.95rem, 2.4vw, 1rem);
+      min-width: 720px;
+      /* 横スク時に崩さない */
+    }
+
+    .score-table th,
+    .score-table td {
+      border: 1px solid var(--bd);
+      text-align: center;
+      padding: clamp(10px, 2vw, 16px);
+      white-space: nowrap;
+    }
+
+    .score-table thead {
+      background: var(--muted);
+      font-weight: 600;
+    }
+
+    /* アニメーション控えめ（好み） */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
       }
+    }
 
-      .answer-button {
-        font-size: 1rem;
-      }
-
+    /* スクリーンリーダー補助 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
 </head>
