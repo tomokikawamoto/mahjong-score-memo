@@ -56,6 +56,7 @@
     .actions {
       text-align: center;
       margin-top: 48px;
+      margin-bottom: 24px;
     }
 
     button {
@@ -162,6 +163,7 @@
       .answer-button {
         font-size: 1rem;
       }
+
     }
   </style>
 </head>
@@ -171,6 +173,10 @@
     <h1>麻雀点数計算暗記アプリ</h1>
 
     <section id="intro" class="active">
+      <div class="actions">
+        <button id="start-button" type="button">練習スタート</button>
+      </div>
+
       <table class="score-table">
         <thead>
           <tr>
@@ -192,7 +198,7 @@
           <tr>
             <th>2翻</th>
             <td>ツモ: 400-700</td>
-            <td>ロン: 1600<br>ツモ: 400-800</td>
+            <td>ロン: 1600</td>
             <td>ロン: 2000<br>ツモ: 500-1000</td>
             <td>ロン: 2600<br>ツモ: 700-1300</td>
           </tr>
@@ -223,143 +229,55 @@
           </tr>
         </tbody>
       </table>
-
-      <div class="actions">
-        <button id="start-button" type="button">練習スタート</button>
-      </div>
     </section>
 
-    <section id="question">
-      <h2>問題</h2>
-      <ul class="question-list">
-        <li>リーチ</li>
-        <li>ツモ</li>
-        <li>タンヤオ</li>
-        <li>平和</li>
-      </ul>
-      <div class="answer-grid">
-        <button class="answer-button" data-score="1000-2000" type="button">1000-2000</button>
-        <button class="answer-button" data-score="1300-2600" type="button">1300-2600</button>
-        <button class="answer-button" data-score="2000-4000" type="button">2000-4000</button>
-        <button class="answer-button" data-score="3000-6000" type="button">3000-6000</button>
-      </div>
-    </section>
 
     <section id="result">
-      <h2>正解</h2>
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th>翻数</th>
-            <th>平和ツモ<br>20符</th>
-            <th>七対子<br>25符</th>
-            <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-            <th>鳴きなしロン<br>(平和以外)<br>40符</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>1翻</th>
-            <td>なし</td>
-            <td>なし</td>
-            <td>ロン: 1000<br>ツモ: 300-500</td>
-            <td>ロン: 1300<br>ツモ: 400-700</td>
-          </tr>
-          <tr>
-            <th>2翻</th>
-            <td>ツモ: 400-700</td>
-            <td>ロン: 1600<br>ツモ: 400-800</td>
-            <td>ロン: 2000<br>ツモ: 500-1000</td>
-            <td>ロン: 2600<br>ツモ: 700-1300</td>
-          </tr>
-          <tr>
-            <th>3翻</th>
-            <td>ツモ: 700-1300</td>
-            <td>ロン: 3200<br>ツモ: 800-1600</td>
-            <td>ロン: 3900<br>ツモ: 1000-2000</td>
-            <td>ロン: 5200<br>ツモ: 1300-2600</td>
-          </tr>
-          <tr>
-            <th>4翻</th>
-            <td class="highlight">ツモ: 1300-2600</td>
-            <td>ロン: 6400<br>ツモ: 1600-3200</td>
-            <td colspan="2">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
-          </tr>
-          <tr>
-            <th>5翻</th>
-            <td colspan="4">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
-          </tr>
-          <tr>
-            <th>6,7翻</th>
-            <td colspan="4">跳満<br> ロン: 12000<br>ツモ: 3000-6000</td>
-          </tr>
-          <tr>
-            <th>倍満</th>
-            <td colspan="4">倍満<br> ロン: 16000<br>ツモ: 4000-8000</td>
-          </tr>
-        </tbody>
-      </table>
-
       <div class="result-message" id="result-message"></div>
 
       <div class="actions">
         <button id="retry-button" type="button">もう一度練習する</button>
       </div>
     </section>
+
+    <section id="question-tumo" class="section">
+      <h2>この手の点数は？</h2>
+      <ul class="question-list"></ul>
+      <div class="answer-grid">
+        <button class="answer-button" data-score="300-500" type="button">300-500</button>
+        <button class="answer-button" data-score="400-700" type="button">400-700</button>
+        <button class="answer-button" data-score="500-1000" type="button">500-1000</button>
+        <button class="answer-button" data-score="700-1300" type="button">700-1300</button>
+        <button class="answer-button" data-score="1000-2000" type="button">1000-2000</button>
+        <button class="answer-button" data-score="1300-2600" type="button">1300-2600</button>
+        <button class="answer-button" data-score="1600-3200" type="button">1600-3200</button>
+        <button class="answer-button" data-score="2000-4000" type="button">2000-4000</button>
+        <button class="answer-button" data-score="3000-6000" type="button">3000-6000</button>
+        <button class="answer-button" data-score="4000-8000" type="button">4000-8000</button>
+      </div>
+    </section>
+
+    <section id="question_ron" class="section">
+      <h2>この手の点数は？</h2>
+      <ul class="question-list"></ul>
+      <div class="answer-grid">
+        <button class="answer-button" data-score="1000" type="button">1000</button>
+        <button class="answer-button" data-score="1300" type="button">1300</button>
+        <button class="answer-button" data-score="1600" type="button">1600</button>
+        <button class="answer-button" data-score="2000" type="button">2000</button>
+        <button class="answer-button" data-score="2600" type="button">2600</button>
+        <button class="answer-button" data-score="3200" type="button">3200</button>
+        <button class="answer-button" data-score="3900" type="button">3900</button>
+        <button class="answer-button" data-score="5200" type="button">5200</button>
+        <button class="answer-button" data-score="8000" type="button">8000</button>
+        <button class="answer-button" data-score="12000" type="button">12000</button>
+        <button class="answer-button" data-score="16000" type="button">16000</button>
+      </div>
+    </section>
+
   </main>
 
-  <script>
-    const introSection = document.getElementById('intro');
-    const questionSection = document.getElementById('question');
-    const resultSection = document.getElementById('result');
-    const resultMessage = document.getElementById('result-message');
-    const startButton = document.getElementById('start-button');
-    const retryButton = document.getElementById('retry-button');
-    const answerButtons = document.querySelectorAll('.answer-button');
-    const correctScore = '1300-2600';
-
-    function showSection(section) {
-      [introSection, questionSection, resultSection].forEach((el) => {
-        el.classList.toggle('active', el === section);
-      });
-    }
-
-    startButton.addEventListener('click', () => {
-      showSection(questionSection);
-    });
-
-    retryButton.addEventListener('click', () => {
-      answerButtons.forEach((btn) => {
-        btn.classList.remove('correct', 'incorrect');
-        btn.disabled = false;
-      });
-      resultMessage.textContent = '';
-      resultMessage.className = 'result-message';
-      showSection(questionSection);
-    });
-
-    answerButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        answerButtons.forEach((btn) => {
-          btn.disabled = true;
-          if (btn.dataset.score === correctScore) {
-            btn.classList.add('correct');
-          }
-        });
-
-        if (button.dataset.score === correctScore) {
-          resultMessage.textContent = '正解です！リーチ・ツモ・タンヤオ・平和の4翻20符は「1300-2600」です。';
-          resultMessage.classList.add('success');
-        } else {
-          button.classList.add('incorrect');
-          resultMessage.textContent = '残念！正解は「1300-2600」です。平和ツモ20符の4翻はこの点数になります。';
-          resultMessage.classList.add('failure');
-        }
-
-        showSection(resultSection);
-      });
-    });
-  </script>
+  <script type="module" src="apps.js"></script>
 </body>
 
 </html>
