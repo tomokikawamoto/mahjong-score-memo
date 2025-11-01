@@ -4,80 +4,106 @@
 <head>
   <meta charset="utf-8">
   <title>麻雀点数計算暗記アプリ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
   <style>
     :root {
-      font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
-      color: #222;
-      background-color: #fafafa;
+      --bg: #fafafa;
+      --fg: #222;
+      --card: #fff;
+      --muted: #f2f5fb;
+      --brand: #1b75bb;
+      --brand-strong: #14619c;
+      --ok-bg: #e5f6e0;
+      --ok-fg: #1a7f37;
+      --ok-bd: #a4d7a0;
+      --ng-bg: #fdecea;
+      --ng-fg: #c62828;
+      --ng-bd: #f6b8b5;
+      --bd: #ddd;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --fg: #e7e7e7;
+        --card: #141821;
+        --muted: #1d2431;
+        --brand: #4aa3ff;
+        --brand-strong: #2a83df;
+        --ok-bg: #113a1e;
+        --ok-fg: #9ae6b4;
+        --ok-bd: #1f6f3b;
+        --ng-bg: #3b1211;
+        --ng-fg: #ffb4b0;
+        --ng-bd: #7a2a27;
+        --bd: #2a3140;
+        --shadow: 0 10px 40px rgba(0, 0, 0, .4);
+      }
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
-      margin: 0;
+      margin: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
       padding: 24px 16px 64px;
       display: flex;
       justify-content: center;
+      line-height: 1.6;
     }
 
     main {
       max-width: 960px;
       width: 100%;
-      background: #fff;
+      background: var(--card);
       border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-      padding: 48px clamp(16px, 4vw, 48px);
+      padding: clamp(24px, 3.5vw, 48px);
     }
 
     h1 {
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      margin: 0 0 32px;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      margin: 0 0 24px;
       text-align: center;
+      line-height: 1.25;
     }
 
-    .score-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 40px;
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .score-table th,
-    .score-table td {
-      border: 1px solid #ddd;
-      text-align: center;
-      padding: clamp(12px, 2vw, 16px);
-    }
-
-    .score-table thead {
-      background: #f2f5fb;
-      font-weight: 600;
+    h2 {
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+      margin: 0 0 16px;
     }
 
     .actions {
       text-align: center;
-      margin-top: 48px;
+      margin: 24px 0;
     }
 
     button {
-      font-size: 1.1rem;
-      padding: 12px 32px;
-      border-radius: 999px;
-      background: #1b75bb;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      min-height: 48px;
+      /* 親指サイズ */
+      border-radius: 14px;
+      background: var(--brand);
       color: #fff;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     button:hover {
-      background: #14619c;
+      background: var(--brand-strong);
       transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(27, 117, 187, 0.25);
     }
 
     button:active {
       transform: translateY(0);
-      box-shadow: none;
     }
 
     section {
@@ -89,79 +115,150 @@
     }
 
     .question-list {
-      margin: 0 0 32px 0;
+      margin: 0 0 20px;
       padding-left: 20px;
-      font-size: 1.05rem;
+      font-size: clamp(1rem, 2.6vw, 1.1rem);
     }
 
+    /* 解答ボタングリッド：画面幅に合わせて自動段組 */
     .answer-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+      /* スマホは2列 */
+      gap: 12px;
+    }
+
+    @media (min-width: 540px) {
+      .answer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .answer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .answer-button {
-      background: #fff;
-      border: 2px solid #222;
-      color: #222;
-      font-size: 1.1rem;
+      background: transparent;
+      border: 2px solid var(--fg);
+      color: var(--fg);
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
       padding: 16px 12px;
       border-radius: 12px;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      transition: background .2s ease, color .2s ease, transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+      min-height: 56px;
+      width: 100%;
     }
 
     .answer-button:hover {
-      background: #1b75bb;
+      background: var(--brand);
       color: #fff;
       transform: translateY(-1px);
-      box-shadow: 0 10px 16px rgba(27, 117, 187, 0.2);
     }
 
     .answer-button.correct {
-      border-color: #1b75bb;
-      background: #e3f0fb;
+      border-color: var(--brand);
+      background: color-mix(in oklab, var(--brand) 15%, transparent);
     }
 
     .answer-button.incorrect {
       border-color: #d93a35;
-      background: #fce8e6;
+      background: color-mix(in oklab, #d93a35 15%, transparent);
     }
 
     .result-message {
-      margin: 24px 0;
-      padding: 16px 20px;
+      margin: 20px 0;
+      padding: 14px 16px;
       border-radius: 12px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
     }
 
     .result-message.success {
-      background: #e5f6e0;
-      color: #1a7f37;
-      border: 1px solid #a4d7a0;
+      background: var(--ok-bg);
+      color: var(--ok-fg);
+      border: 1px solid var(--ok-bd);
     }
 
     .result-message.failure {
-      background: #fdecea;
-      color: #c62828;
-      border: 1px solid #f6b8b5;
+      background: var(--ng-bg);
+      color: var(--ng-fg);
+      border: 1px solid var(--ng-bd);
     }
 
-    .highlight {
-      background: #d7ecff;
+    /* スコア表（折りたたみ + 横スクロール） */
+    .score-guide {
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      background: color-mix(in oklab, var(--muted) 60%, transparent);
+      margin: 16px 0 8px;
+      overflow: hidden;
     }
 
-    @media (max-width: 600px) {
+    .score-guide>summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 600;
+      user-select: none;
+      outline: none;
+    }
 
-      .score-table th,
-      .score-table td {
-        font-size: 0.85rem;
-        padding: 12px;
-      }
+    .score-guide>summary::marker {
+      display: none;
+    }
 
-      .answer-button {
-        font-size: 1rem;
+    .score-guide[open]>summary {
+      border-bottom: 1px solid var(--bd);
+    }
+
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(0.95rem, 2.4vw, 1rem);
+      min-width: 720px;
+      /* 横スク時に崩さない */
+    }
+
+    .score-table th,
+    .score-table td {
+      border: 1px solid var(--bd);
+      text-align: center;
+      padding: clamp(10px, 2vw, 16px);
+      white-space: nowrap;
+    }
+
+    .score-table thead {
+      background: var(--muted);
+      font-weight: 600;
+    }
+
+    /* アニメーション控えめ（好み） */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
       }
+    }
+
+    /* スクリーンリーダー補助 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
 </head>
@@ -171,6 +268,10 @@
     <h1>麻雀点数計算暗記アプリ</h1>
 
     <section id="intro" class="active">
+      <div class="actions">
+        <button id="start-button" type="button">練習スタート</button>
+      </div>
+
       <table class="score-table">
         <thead>
           <tr>
@@ -192,7 +293,7 @@
           <tr>
             <th>2翻</th>
             <td>ツモ: 400-700</td>
-            <td>ロン: 1600<br>ツモ: 400-800</td>
+            <td>ロン: 1600</td>
             <td>ロン: 2000<br>ツモ: 500-1000</td>
             <td>ロン: 2600<br>ツモ: 700-1300</td>
           </tr>
@@ -223,143 +324,55 @@
           </tr>
         </tbody>
       </table>
-
-      <div class="actions">
-        <button id="start-button" type="button">練習スタート</button>
-      </div>
     </section>
 
-    <section id="question">
-      <h2>問題</h2>
-      <ul class="question-list">
-        <li>リーチ</li>
-        <li>ツモ</li>
-        <li>タンヤオ</li>
-        <li>平和</li>
-      </ul>
-      <div class="answer-grid">
-        <button class="answer-button" data-score="1000-2000" type="button">1000-2000</button>
-        <button class="answer-button" data-score="1300-2600" type="button">1300-2600</button>
-        <button class="answer-button" data-score="2000-4000" type="button">2000-4000</button>
-        <button class="answer-button" data-score="3000-6000" type="button">3000-6000</button>
-      </div>
-    </section>
 
     <section id="result">
-      <h2>正解</h2>
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th>翻数</th>
-            <th>平和ツモ<br>20符</th>
-            <th>七対子<br>25符</th>
-            <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-            <th>鳴きなしロン<br>(平和以外)<br>40符</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>1翻</th>
-            <td>なし</td>
-            <td>なし</td>
-            <td>ロン: 1000<br>ツモ: 300-500</td>
-            <td>ロン: 1300<br>ツモ: 400-700</td>
-          </tr>
-          <tr>
-            <th>2翻</th>
-            <td>ツモ: 400-700</td>
-            <td>ロン: 1600<br>ツモ: 400-800</td>
-            <td>ロン: 2000<br>ツモ: 500-1000</td>
-            <td>ロン: 2600<br>ツモ: 700-1300</td>
-          </tr>
-          <tr>
-            <th>3翻</th>
-            <td>ツモ: 700-1300</td>
-            <td>ロン: 3200<br>ツモ: 800-1600</td>
-            <td>ロン: 3900<br>ツモ: 1000-2000</td>
-            <td>ロン: 5200<br>ツモ: 1300-2600</td>
-          </tr>
-          <tr>
-            <th>4翻</th>
-            <td class="highlight">ツモ: 1300-2600</td>
-            <td>ロン: 6400<br>ツモ: 1600-3200</td>
-            <td colspan="2">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
-          </tr>
-          <tr>
-            <th>5翻</th>
-            <td colspan="4">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
-          </tr>
-          <tr>
-            <th>6,7翻</th>
-            <td colspan="4">跳満<br> ロン: 12000<br>ツモ: 3000-6000</td>
-          </tr>
-          <tr>
-            <th>倍満</th>
-            <td colspan="4">倍満<br> ロン: 16000<br>ツモ: 4000-8000</td>
-          </tr>
-        </tbody>
-      </table>
-
       <div class="result-message" id="result-message"></div>
 
       <div class="actions">
         <button id="retry-button" type="button">もう一度練習する</button>
       </div>
     </section>
+
+    <section id="question-tumo" class="section">
+      <h2>この手の点数は？</h2>
+      <ul class="question-list"></ul>
+      <div class="answer-grid">
+        <button class="answer-button" data-score="300-500" type="button">300-500</button>
+        <button class="answer-button" data-score="400-700" type="button">400-700</button>
+        <button class="answer-button" data-score="500-1000" type="button">500-1000</button>
+        <button class="answer-button" data-score="700-1300" type="button">700-1300</button>
+        <button class="answer-button" data-score="1000-2000" type="button">1000-2000</button>
+        <button class="answer-button" data-score="1300-2600" type="button">1300-2600</button>
+        <button class="answer-button" data-score="1600-3200" type="button">1600-3200</button>
+        <button class="answer-button" data-score="2000-4000" type="button">2000-4000</button>
+        <button class="answer-button" data-score="3000-6000" type="button">3000-6000</button>
+        <button class="answer-button" data-score="4000-8000" type="button">4000-8000</button>
+      </div>
+    </section>
+
+    <section id="question_ron" class="section">
+      <h2>この手の点数は？</h2>
+      <ul class="question-list"></ul>
+      <div class="answer-grid">
+        <button class="answer-button" data-score="1000" type="button">1000</button>
+        <button class="answer-button" data-score="1300" type="button">1300</button>
+        <button class="answer-button" data-score="1600" type="button">1600</button>
+        <button class="answer-button" data-score="2000" type="button">2000</button>
+        <button class="answer-button" data-score="2600" type="button">2600</button>
+        <button class="answer-button" data-score="3200" type="button">3200</button>
+        <button class="answer-button" data-score="3900" type="button">3900</button>
+        <button class="answer-button" data-score="5200" type="button">5200</button>
+        <button class="answer-button" data-score="8000" type="button">8000</button>
+        <button class="answer-button" data-score="12000" type="button">12000</button>
+        <button class="answer-button" data-score="16000" type="button">16000</button>
+      </div>
+    </section>
+
   </main>
 
-  <script>
-    const introSection = document.getElementById('intro');
-    const questionSection = document.getElementById('question');
-    const resultSection = document.getElementById('result');
-    const resultMessage = document.getElementById('result-message');
-    const startButton = document.getElementById('start-button');
-    const retryButton = document.getElementById('retry-button');
-    const answerButtons = document.querySelectorAll('.answer-button');
-    const correctScore = '1300-2600';
-
-    function showSection(section) {
-      [introSection, questionSection, resultSection].forEach((el) => {
-        el.classList.toggle('active', el === section);
-      });
-    }
-
-    startButton.addEventListener('click', () => {
-      showSection(questionSection);
-    });
-
-    retryButton.addEventListener('click', () => {
-      answerButtons.forEach((btn) => {
-        btn.classList.remove('correct', 'incorrect');
-        btn.disabled = false;
-      });
-      resultMessage.textContent = '';
-      resultMessage.className = 'result-message';
-      showSection(questionSection);
-    });
-
-    answerButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        answerButtons.forEach((btn) => {
-          btn.disabled = true;
-          if (btn.dataset.score === correctScore) {
-            btn.classList.add('correct');
-          }
-        });
-
-        if (button.dataset.score === correctScore) {
-          resultMessage.textContent = '正解です！リーチ・ツモ・タンヤオ・平和の4翻20符は「1300-2600」です。';
-          resultMessage.classList.add('success');
-        } else {
-          button.classList.add('incorrect');
-          resultMessage.textContent = '残念！正解は「1300-2600」です。平和ツモ20符の4翻はこの点数になります。';
-          resultMessage.classList.add('failure');
-        }
-
-        showSection(resultSection);
-      });
-    });
-  </script>
+  <script type="module" src="apps.js"></script>
 </body>
 
 </html>
