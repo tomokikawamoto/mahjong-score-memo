@@ -12,6 +12,10 @@ const questionSection_tumo_oya = document.getElementById('question_tumo_oya');
 const questionSection_ron_oya = document.getElementById('question_ron_oya');
 const resultSection = document.getElementById('result');
 const resultMessage = document.getElementById('result-message');
+const resultQuestion = document.getElementById('result-question');
+const resultHan = document.getElementById('result-han');
+const resultFu = document.getElementById('result-fu');
+const resultPointDisplay = document.getElementById('result-point');
 const startButton = document.getElementById('start-button');
 const retryButton = document.getElementById('retry-button');
 const answerButtons = document.querySelectorAll('.answer-button');
@@ -45,6 +49,7 @@ let currentHan = null;
 let currentWinType = null;
 let currentHandstate = null;
 let currentSeat = null;
+let currentQuestionHtml = '';
 
 
 
@@ -64,14 +69,15 @@ function startNewQuiz() {
         : (currentSeat === "親" ? questionSection_ron_oya : questionSection_ron_ko);
     const questionList = section.querySelector(".question-list");
 
-
-    questionList.innerHTML = `
+    const questionHtml = `
       <p>席：<strong>${currentSeat}</strong></p>
       <p>和了り方：<strong>${currentHandstate}${currentWinType}</strong></p>
       <p>役：</p>
       <ul>${currentHand.yaku.map(y => `<li>${y.name}</li>`).join("")}</ul>
     `;
 
+    questionList.innerHTML = questionHtml;
+    currentQuestionHtml = questionHtml;
 
     // 前回の回答結果をリセット
     answerButtons.forEach((btn) => {
@@ -80,6 +86,10 @@ function startNewQuiz() {
     });
     resultMessage.textContent = '';
     resultMessage.className = 'result-message';
+    resultQuestion.innerHTML = '';
+    resultHan.textContent = '';
+    resultFu.textContent = '';
+    resultPointDisplay.textContent = '';
 
     showSection(section);
 }
@@ -103,15 +113,22 @@ answerButtons.forEach((button) => {
             }
         });
 
-        if (button.dataset.score === currentPoint.point) {
+        const isCorrect = button.dataset.score === currentPoint.point;
+        resultMessage.className = 'result-message';
+
+        if (isCorrect) {
             resultMessage.textContent = `正解です！「${currentPoint.point}」です。`;
             resultMessage.classList.add('success');
         } else {
             button.classList.add('incorrect');
-            resultMessage.textContent = `残念！正解は「${currentPoint.point}」です。
-            ${currentHand.yaku.map(y => y.name).join(", ")}は${currentPoint}になります。`;
+            resultMessage.textContent = `残念！正解は「${currentPoint.point}」です。`;
             resultMessage.classList.add('failure');
         }
+
+        resultQuestion.innerHTML = currentQuestionHtml;
+        resultHan.textContent = `${currentHan}飜`;
+        resultFu.textContent = `${currentFu}符`;
+        resultPointDisplay.textContent = currentPoint.point;
 
         showSection(resultSection);
     });

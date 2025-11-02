@@ -379,6 +379,60 @@
       border: 1px solid var(--ng-bd);
     }
 
+    .result-details {
+      display: grid;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    @media (min-width: 640px) {
+      .result-details {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+    }
+
+    .result-card {
+      background: color-mix(in oklab, var(--muted) 55%, transparent);
+      border: 1px solid color-mix(in oklab, var(--bd) 70%, transparent);
+      border-radius: 12px;
+      padding: 18px clamp(16px, 3vw, 22px);
+      display: grid;
+      gap: 12px;
+    }
+
+    .result-card h3 {
+      margin: 0;
+      font-size: clamp(1.05rem, 2.8vw, 1.2rem);
+    }
+
+    .result-question-content {
+      display: grid;
+      gap: 8px;
+      font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+    }
+
+    .result-question-content p {
+      margin: 0;
+    }
+
+    .result-question-content ul,
+    .result-answer-list {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .result-answer-list {
+      list-style: none;
+      padding-left: 0;
+      font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+    }
+
+    .result-answer-list li strong {
+      font-weight: 600;
+    }
+
     /* スコア表（折りたたみ + 横スクロール） */
     .score-guide {
       border: 1px solid var(--bd);
@@ -727,6 +781,20 @@
 
     <section id="result">
       <div class="result-message" id="result-message"></div>
+      <div class="result-details" aria-live="polite">
+        <div class="result-card">
+          <h3>今回の問題</h3>
+          <div id="result-question" class="result-question-content"></div>
+        </div>
+        <div class="result-card">
+          <h3>正解</h3>
+          <ul class="result-answer-list">
+            <li>飜数：<strong id="result-han"></strong></li>
+            <li>符：<strong id="result-fu"></strong></li>
+            <li>点数：<strong id="result-point"></strong></li>
+          </ul>
+        </div>
+      </div>
 
       <div class="actions">
         <button id="retry-button" type="button">もう一度練習する</button>
