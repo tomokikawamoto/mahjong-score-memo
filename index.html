@@ -61,9 +61,12 @@
     main {
       max-width: 960px;
       width: 100%;
-      background: var(--card);
-      border-radius: 16px;
-      padding: clamp(24px, 3.5vw, 48px);
+      padding: clamp(20px, 3vw, 36px);
+      display: grid;
+      gap: clamp(32px, 5vw, 48px);
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
 
     h1 {
@@ -81,7 +84,7 @@
     .intro-summary {
       display: grid;
       gap: 12px;
-      margin: 0 0 28px;
+      margin: 0;
       font-size: clamp(1rem, 2.6vw, 1.1rem);
     }
 
@@ -91,13 +94,13 @@
     }
 
     .info-block {
-      background: color-mix(in oklab, var(--muted) 55%, transparent);
-      border: 1px solid var(--bd);
+      background: color-mix(in oklab, var(--muted) 40%, transparent);
+      border: 1px solid color-mix(in oklab, var(--bd) 65%, transparent);
       border-radius: 12px;
-      padding: 18px clamp(16px, 3vw, 24px);
+      padding: clamp(16px, 3vw, 22px);
       display: grid;
       gap: 12px;
-      margin: 0 0 24px;
+      margin: 0;
     }
 
     .info-block h2 {
@@ -128,7 +131,13 @@
 
     .actions {
       text-align: center;
-      margin: 24px 0;
+      margin: 0;
+    }
+
+    .back-to-intro {
+      display: block;
+      margin: clamp(24px, 5vw, 40px) auto clamp(32px, 7vw, 56px);
+      width: min(100%, 280px);
     }
 
     button {
@@ -320,46 +329,103 @@
 
     <section id="intro" class="active">
       <div class="intro-summary">
-        <p class="lead">点パネ(符ハネ)なしのケースの点数計算練習アプリです。</p>
-        <p>実践で登場する形の8〜9割に対応しています。
-          <br> 点パネありの代表的なケースはページ下部に記載しました。
+        <p class="lead">点パネ(符ハネ)なしの点数計算練習アプリです。</p>
+        <p>実践で登場する形のおよそ8割に対応しています。
+          <br>
+          点パネの代表的なケースはページ下部のまとめで参照できます。
         </p>
-      </div>
 
-      <div class="info-block">
-        <h2>符計算の基本 (点パネなし)</h2>
-        <ul class="plain-list">
-          <li><span class="list-keyword">平和ツモ</span> → 20符</li>
-          <li><span class="list-keyword">七対子</span> → 25符</li>
-          <li><span class="list-keyword">平和以外の門前ロン</span> → 40符</li>
-          <li><span class="list-keyword">それ以外</span> → 30符</li>
-        </ul>
-      </div>
+        <div class="info-block">
+          <h2>符計算の基本 (点パネなし)</h2>
+          <ul class="plain-list">
+            <li><span class="list-keyword">平和ツモ</span> → 20符</li>
+            <li><span class="list-keyword">七対子</span> → 25符</li>
+            <li><span class="list-keyword">平和以外の門前ロン*</span> → 40符</li>
+            <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
+          </ul>
+          *基本符の20符と門前ロンの10符で30符あり、平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
+        </div>
 
-      <div class="actions">
-        <button id="start-button" type="button">練習スタート</button>
-      </div>
+        <div class="actions">
+          <button id="start-button" type="button">練習スタート</button>
+        </div>
 
-      <div class="info-block">
-        <h2>補足1: 覚え方のコツ</h2>
-        <ul class="plain-list">
-          <li>符や飜が2倍になると点数も(だいたい)2倍になる</li>
-          <li>親の点数は子のおよそ1.5倍になる</li>
-        </ul>
-      </div>
+        <div class="info-block">
+          <h2>補足1: 覚え方のコツ</h2>
+          <ul class="plain-list">
+            <li>符や飜が2倍になると点数も(だいたい)2倍になる</li>
+            <li>親の点数は子の(だいたい)1.5倍になる</li>
+          </ul>
+        </div>
 
-      <div class="info-block">
-        <h2>補足2: 代表的な点パネパターン</h2>
-        <ul class="plain-list">
-          <li>19字牌の暗槓 (+32符)</li>
-          <li>19字牌の明槓 (+16符)</li>
-          <li>2〜8数牌の暗槓 (+16符)</li>
-          <li>19字牌の暗刻 (+8符) + 任意の牌の暗刻 (+4符 or +8符)</li>
-          <li>19字牌の暗刻 (+8符) + 19字牌の明刻 (+4符)</li>
-          <li>19字牌の暗刻 (+8符) + 愚形 (+2符) + ツモ (+2符)</li>
-          <li>19字牌の明刻 (+4符) ×2 + 愚形 (+2符) + ツモ (+2符)</li>
-        </ul>
-      </div>
+        <div class="info-block">
+          <h2>補足2: 代表的な点パネパターン</h2>
+          <ul class="plain-list">
+            <li>19字牌の暗槓 (+32符)</li>
+            <li>19字牌の明槓 (+16符)</li>
+            <li>2〜8数牌の暗槓 (+16符)</li>
+            <li>19字牌の暗刻 (+8符) + 任意の牌の暗刻 (+4符 or +8符)</li>
+            <li>19字牌の暗刻 (+8符) + 19字牌の明刻 (+4符)</li>
+            <li>19字牌の暗刻 (+8符) + 愚形 (+2符) + ツモ (+2符)</li>
+            <li>19字牌の明刻 (+4符) ×2 + 愚形 (+2符) + ツモ (+2符)</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>子の点数表</h2>
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th>翻数</th>
+                <th>平和ツモ<br>20符</th>
+                <th>七対子<br>25符</th>
+                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
+                <th>鳴きなしロン<br>(平和以外)<br>40符</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1翻</th>
+                <td>なし</td>
+                <td>なし</td>
+                <td>ロン: 1000<br>ツモ: 300-500</td>
+                <td>ロン: 1300<br>ツモ: 400-700</td>
+              </tr>
+              <tr>
+                <th>2翻</th>
+                <td>ツモ: 400-700</td>
+                <td>ロン: 1600</td>
+                <td>ロン: 2000<br>ツモ: 500-1000</td>
+                <td>ロン: 2600<br>ツモ: 700-1300</td>
+              </tr>
+              <tr>
+                <th>3翻</th>
+                <td>ツモ: 700-1300</td>
+                <td>ロン: 3200<br>ツモ: 800-1600</td>
+                <td>ロン: 3900<br>ツモ: 1000-2000</td>
+                <td>ロン: 5200<br>ツモ: 1300-2600</td>
+              </tr>
+              <tr>
+                <th>4翻</th>
+                <td>ツモ: 1300-2600</td>
+                <td>ロン: 6400<br>ツモ: 1600-3200</td>
+                <td colspan="2">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
+              </tr>
+              <tr>
+                <th>5翻</th>
+                <td colspan="4">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
+              </tr>
+              <tr>
+                <th>6,7翻</th>
+                <td colspan="4">跳満<br> ロン: 12000<br>ツモ: 3000-6000</td>
+              </tr>
+              <tr>
+                <th>倍満</th>
+                <td colspan="4">倍満<br> ロン: 16000<br>ツモ: 4000-8000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     </section>
 
 
