@@ -111,7 +111,10 @@
     }
 
     section.active {
-      display: block;
+      display: grid;
+      /* block → grid に */
+      row-gap: 24px;
+      /* ここが“距離” */
     }
 
     .question-list {
@@ -265,13 +268,48 @@
 
 <body>
   <main>
-    <h1>麻雀点数計算暗記アプリ</h1>
+    <h1>麻雀点数計算速習アプリ</h1>
 
     <section id="intro" class="active">
+      <p>点パネ(符ハネ)なしのケース限定の点数計算練習アプリです。
+        <br>実践で登場する8~9割の和了り形の点数計算に対応しています。(作者の体感)
+        <br>点パネありのケースは典型例はページ下部に載せています。</b>
+      </p>
+      <h2>符計算の方法(点パネなしのケース)</h2>
+      <ul>
+        <li>平和ツモ→20符</li>
+        <li>七対子→25符</li>
+        <li>平和以外の門前ロン→40符</li>
+        <li>それ以外→30符</li>
+      </ul>
       <div class="actions">
         <button id="start-button" type="button">練習スタート</button>
       </div>
+      <h2>補足1: 覚え方のコツ</h2>
+      <ul>
+        <li>符や飜が2倍になると点数が(だいたい)2倍になる</li>
+        <li>親の場合は子の場合の(だいたい)1.5倍の点数になる</li>
+      </ul>
+      <h2>補足2: 典型的な点パネのパターン</h2>
+      <ul>
+        <li>19字牌の暗槓(+32符)</li>
+        <li>19字牌の明槓(+16符)</li>
+        <li>2~8数牌の暗槓(+16符)</li>
+        <li>19字牌の暗刻(+8符)+任意の牌の暗刻(+4符 or 8符)</li>
+        <li>19字牌の暗刻(+8符)+19字牌の明刻(+4符)</li>
+        <li>19字牌の暗刻(+8符)+愚形(+2符)+ツモ(+2符)</li>
+        <li>19字牌の明刻(+4符)×2+愚形(+2符)+ツモ(+2符)</li>
+      </ul>
+    </section>
 
+
+    <section id="result">
+      <div class="result-message" id="result-message"></div>
+
+      <div class="actions">
+        <button id="retry-button" type="button">もう一度練習する</button>
+      </div>
+      <button class="back-to-intro">スタートページに戻る</button>
       <table class="score-table">
         <thead>
           <tr>
@@ -326,16 +364,7 @@
       </table>
     </section>
 
-
-    <section id="result">
-      <div class="result-message" id="result-message"></div>
-
-      <div class="actions">
-        <button id="retry-button" type="button">もう一度練習する</button>
-      </div>
-    </section>
-
-    <section id="question-tumo" class="section">
+    <section id="question_tumo_ko" class="section">
       <h2>この手の点数は？</h2>
       <ul class="question-list"></ul>
       <div class="answer-grid">
@@ -346,13 +375,15 @@
         <button class="answer-button" data-score="1000-2000" type="button">1000-2000</button>
         <button class="answer-button" data-score="1300-2600" type="button">1300-2600</button>
         <button class="answer-button" data-score="1600-3200" type="button">1600-3200</button>
-        <button class="answer-button" data-score="2000-4000" type="button">2000-4000</button>
-        <button class="answer-button" data-score="3000-6000" type="button">3000-6000</button>
-        <button class="answer-button" data-score="4000-8000" type="button">4000-8000</button>
+        <button class="answer-button" data-score="2000-4000" type="button">2000-4000(満貫)</button>
+        <button class="answer-button" data-score="3000-6000" type="button">3000-6000(跳満)</button>
+        <button class="answer-button" data-score="4000-8000" type="button">4000-8000(倍満)</button>
+        <button class="answer-button" data-score="6000-12000" type="button">6000-12000(三倍満)</button>
       </div>
+      <button class="back-to-intro">スタートページに戻る</button>
     </section>
 
-    <section id="question_ron" class="section">
+    <section id="question_ron_ko" class="section">
       <h2>この手の点数は？</h2>
       <ul class="question-list"></ul>
       <div class="answer-grid">
@@ -364,10 +395,53 @@
         <button class="answer-button" data-score="3200" type="button">3200</button>
         <button class="answer-button" data-score="3900" type="button">3900</button>
         <button class="answer-button" data-score="5200" type="button">5200</button>
-        <button class="answer-button" data-score="8000" type="button">8000</button>
-        <button class="answer-button" data-score="12000" type="button">12000</button>
-        <button class="answer-button" data-score="16000" type="button">16000</button>
+        <button class="answer-button" data-score="6400" type="button">6400</button>
+        <button class="answer-button" data-score="8000" type="button">8000(満貫)</button>
+        <button class="answer-button" data-score="12000" type="button">12000(跳満)</button>
+        <button class="answer-button" data-score="16000" type="button">16000(倍満)</button>
+        <button class="answer-button" data-score="24000" type="button">24000(三倍満)</button>
       </div>
+      <button class="back-to-intro">スタートページに戻る</button>
+    </section>
+
+    <section id="question_tumo_oya" class="section">
+      <h2>この手の点数は？</h2>
+      <ul class="question-list"></ul>
+      <div class="answer-grid">
+        <button class="answer-button" data-score="500all" type="button">500all</button>
+        <button class="answer-button" data-score="700all" type="button">700all</button>
+        <button class="answer-button" data-score="1000all" type="button">1000all</button>
+        <button class="answer-button" data-score="1300all" type="button">1300all</button>
+        <button class="answer-button" data-score="2000all" type="button">2000all</button>
+        <button class="answer-button" data-score="2600all" type="button">2600all</button>
+        <button class="answer-button" data-score="3200all" type="button">3200all</button>
+        <button class="answer-button" data-score="4000all" type="button">4000all(満貫)</button>
+        <button class="answer-button" data-score="6000all" type="button">6000all(跳満)</button>
+        <button class="answer-button" data-score="8000all" type="button">8000all(倍満)</button>
+        <button class="answer-button" data-score="12000all" type="button">12000all(三倍満)</button>
+      </div>
+      <button class="back-to-intro">スタートページに戻る</button>
+    </section>
+
+    <section id="question_ron_oya" class="section">
+      <h2>この手の点数は？</h2>
+      <ul class="question-list"></ul>
+      <div class="answer-grid">
+        <button class="answer-button" data-score="1500" type="button">1500</button>
+        <button class="answer-button" data-score="2000" type="button">2000</button>
+        <button class="answer-button" data-score="2400" type="button">2400</button>
+        <button class="answer-button" data-score="3000" type="button">3000</button>
+        <button class="answer-button" data-score="3900" type="button">3900</button>
+        <button class="answer-button" data-score="4800" type="button">4800</button>
+        <button class="answer-button" data-score="5800" type="button">5800</button>
+        <button class="answer-button" data-score="7700" type="button">7700</button>
+        <button class="answer-button" data-score="9600" type="button">9600</button>
+        <button class="answer-button" data-score="12000" type="button">12000(満貫)</button>
+        <button class="answer-button" data-score="18000" type="button">18000(跳満)</button>
+        <button class="answer-button" data-score="24000" type="button">24000(倍満)</button>
+        <button class="answer-button" data-score="36000" type="button">36000(三倍満)</button>
+      </div>
+      <button class="back-to-intro">スタートページに戻る</button>
     </section>
 
   </main>
