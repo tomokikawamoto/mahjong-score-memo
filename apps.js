@@ -111,7 +111,23 @@ let currentHan = null;
 let currentWinType = null;
 let currentHandstate = null;
 let currentSeat = null;
-let currentQuestionHtml = '';
+
+const buildQuestionHtml = (options = {}) => {
+    const { includeHan = false } = options;
+    if (!currentHand) {
+        return "";
+    }
+    const yakuItems = currentHand.yaku.map((y) => {
+        const hanLabel = includeHan ? `<span class="yaku-han">(${y.han}飜)</span>` : "";
+        return `<li>${y.name}${hanLabel}</li>`;
+    }).join("");
+    return `
+      <p>席：<strong>${currentSeat}</strong></p>
+      <p>和了り方：<strong>${currentHandstate}${currentWinType}</strong></p>
+      <p>役：</p>
+      <ul>${yakuItems}</ul>
+    `;
+};
 
 
 
@@ -131,15 +147,7 @@ function startNewQuiz() {
         : (currentSeat === "親" ? questionSection_ron_oya : questionSection_ron_ko);
     const questionList = section.querySelector(".question-list");
 
-    const questionHtml = `
-      <p>席：<strong>${currentSeat}</strong></p>
-      <p>和了り方：<strong>${currentHandstate}${currentWinType}</strong></p>
-      <p>役：</p>
-      <ul>${currentHand.yaku.map(y => `<li>${y.name}</li>`).join("")}</ul>
-    `;
-
-    questionList.innerHTML = questionHtml;
-    currentQuestionHtml = questionHtml;
+    questionList.innerHTML = buildQuestionHtml({ includeHan: false });
 
     // 前回の回答結果をリセット
     answerButtons.forEach((btn) => {
@@ -189,7 +197,7 @@ answerButtons.forEach((button) => {
 
         feedbackPlayer.play(isCorrect ? "correct" : "incorrect");
 
-        resultQuestion.innerHTML = currentQuestionHtml;
+        resultQuestion.innerHTML = buildQuestionHtml({ includeHan: true });
         resultHan.textContent = `${currentHan}飜`;
         resultFu.textContent = `${currentFu}符`;
         resultPointDisplay.textContent = currentPoint.point;
