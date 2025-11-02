@@ -104,6 +104,7 @@
     }
 
     .score-box {
+      --score-zoom: 1;
       background: color-mix(in oklab, var(--muted) 55%, transparent);
       border: 1px solid color-mix(in oklab, var(--bd) 75%, transparent);
       border-radius: 16px;
@@ -112,10 +113,94 @@
       gap: clamp(16px, 2.8vw, 24px);
     }
 
-    .score-box>h2 {
+    .score-box-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 16px;
+    }
+
+    .score-box-header h2 {
       margin: 0;
       font-size: clamp(1.25rem, 3.6vw, 1.75rem);
       text-align: center;
+    }
+
+    .score-zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+      border: 1px solid color-mix(in oklab, var(--bd) 60%, transparent);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.95rem;
+    }
+
+    .score-zoom-button {
+      appearance: none;
+      border: 0;
+      background: var(--brand);
+      color: #fff;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .score-zoom-button:hover {
+      background: var(--brand-strong);
+    }
+
+    .score-zoom-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .score-zoom-slider {
+      appearance: none;
+      width: clamp(120px, 20vw, 180px);
+      height: 6px;
+      border-radius: 3px;
+      background: color-mix(in oklab, var(--bd) 70%, transparent);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .score-zoom-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand) 60%, transparent);
+    }
+
+    .score-zoom-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand) 60%, transparent);
+    }
+
+    .score-zoom-button:focus-visible,
+    .score-zoom-slider:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    .score-zoom-value {
+      min-width: 3.5ch;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
     }
 
     .score-scroll {
@@ -138,6 +223,15 @@
       .score-scroll {
         border-color: color-mix(in oklab, var(--bd) 50%, transparent);
         box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+      }
+
+      .score-zoom-controls {
+        background: color-mix(in oklab, var(--card) 50%, transparent);
+        border-color: color-mix(in oklab, var(--bd) 40%, transparent);
+      }
+
+      .score-zoom-slider {
+        background: color-mix(in oklab, var(--bd) 50%, transparent);
       }
     }
 
@@ -320,8 +414,8 @@
     .score-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: clamp(0.95rem, 2.4vw, 1rem);
-      min-width: 720px;
+      font-size: calc(clamp(0.95rem, 2.4vw, 1rem) * var(--score-zoom, 1));
+      min-width: calc(720px * var(--score-zoom, 1));
       /* 横スク時に崩さない */
     }
 
@@ -329,7 +423,7 @@
     .score-table td {
       border: 1px solid var(--bd);
       text-align: center;
-      padding: clamp(10px, 2vw, 16px);
+      padding: calc(clamp(10px, 2vw, 16px) * var(--score-zoom, 1));
       white-space: nowrap;
     }
 
@@ -375,48 +469,57 @@
       </div>
 
       <div class="info-block">
-          <h2>符計算の基本 (点パネなし)</h2>
-          <ul class="plain-list">
-            <li><span class="list-keyword">平和ツモ</span> → 20符</li>
-            <li><span class="list-keyword">七対子</span> → 25符</li>
-            <li><span class="list-keyword">平和以外の門前ロン*</span> → 40符</li>
-            <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
-          </ul>
-          *基本符の20符と門前ロンの10符で30符あり、平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
-        </div>
+        <h2>符計算の基本 (点パネなし)</h2>
+        <ul class="plain-list">
+          <li><span class="list-keyword">平和ツモ</span> → 20符</li>
+          <li><span class="list-keyword">七対子</span> → 25符</li>
+          <li><span class="list-keyword">平和以外の門前ロン*</span> → 40符</li>
+          <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
+        </ul>
+        *基本符の20符と門前ロンの10符で30符あり、平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
+      </div>
 
-        <div class="actions">
-          <button id="start-button" type="button">練習スタート</button>
-        </div>
+      <div class="actions">
+        <button id="start-button" type="button">練習スタート</button>
+      </div>
 
-        <div class="info-block">
-          <h2>補足1: 覚え方のコツ</h2>
-          <ul class="plain-list">
-            <li>符や飜が2倍になると点数も(だいたい)2倍になる</li>
-            <li>親の点数は子の(だいたい)1.5倍になる</li>
-          </ul>
-        </div>
+      <div class="info-block">
+        <h2>補足1: 覚え方のコツ</h2>
+        <ul class="plain-list">
+          <li>符や飜が2倍になると点数も(だいたい)2倍になる</li>
+          <li>親の点数は子の(だいたい)1.5倍になる</li>
+        </ul>
+      </div>
 
-        <div class="info-block">
-          <h2>補足2: 代表的な点パネパターン</h2>
-          <ul class="plain-list">
-            <li>19字牌の暗槓 (+32符)</li>
-            <li>19字牌の明槓 (+16符)</li>
-            <li>2〜8数牌の暗槓 (+16符)</li>
-            <li>19字牌の暗刻 (+8符) + 任意の牌の暗刻 (+4符 or +8符)</li>
-            <li>19字牌の暗刻 (+8符) + 19字牌の明刻 (+4符)</li>
-            <li>19字牌の暗刻 (+8符) + 愚形 (+2符) + ツモ (+2符)</li>
-            <li>19字牌の明刻 (+4符) ×2 + 愚形 (+2符) + ツモ (+2符)</li>
-          </ul>
-        </div>
+      <div class="info-block">
+        <h2>補足2: 代表的な点パネパターン</h2>
+        <ul class="plain-list">
+          <li>19字牌の暗槓 (+32符)</li>
+          <li>19字牌の明槓 (+16符)</li>
+          <li>2〜8数牌の暗槓 (+16符)</li>
+          <li>19字牌の暗刻 (+8符) + 任意の牌の暗刻 (+4符 or +8符)</li>
+          <li>19字牌の暗刻 (+8符) + 19字牌の明刻 (+4符)</li>
+          <li>19字牌の暗刻 (+8符) + 愚形 (+2符) + ツモ (+2符)</li>
+          <li>19字牌の明刻 (+4符) ×2 + 愚形 (+2符) + ツモ (+2符)</li>
+        </ul>
+      </div>
 
       <div class="score-box">
-        <h2>子の点数表</h2>
+        <div class="score-box-header">
+          <h2>子の点数表</h2>
+          <div class="score-zoom-controls" role="group" aria-label="点数表の拡大率調整">
+            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
+            <input type="range" class="score-zoom-slider" min="0.8" max="1.4" step="0.1" value="1"
+              aria-label="拡大率スライダー">
+            <button type="button" class="score-zoom-button" data-zoom="in" aria-label="拡大">＋</button>
+            <span class="score-zoom-value" aria-live="polite">100%</span>
+          </div>
+        </div>
         <div class="score-scroll table-scroll">
           <table class="score-table">
             <thead>
               <tr>
-                <th>翻数</th>
+                <th>飜数</th>
                 <th>平和ツモ<br>20符</th>
                 <th>七対子<br>25符</th>
                 <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
@@ -425,44 +528,119 @@
             </thead>
             <tbody>
               <tr>
-                <th>1翻</th>
+                <th>1飜</th>
                 <td>なし</td>
                 <td>なし</td>
                 <td>ロン: 1000<br>ツモ: 300-500</td>
                 <td>ロン: 1300<br>ツモ: 400-700</td>
               </tr>
               <tr>
-                <th>2翻</th>
+                <th>2飜</th>
                 <td>ツモ: 400-700</td>
                 <td>ロン: 1600</td>
                 <td>ロン: 2000<br>ツモ: 500-1000</td>
                 <td>ロン: 2600<br>ツモ: 700-1300</td>
               </tr>
               <tr>
-                <th>3翻</th>
+                <th>3飜</th>
                 <td>ツモ: 700-1300</td>
                 <td>ロン: 3200<br>ツモ: 800-1600</td>
                 <td>ロン: 3900<br>ツモ: 1000-2000</td>
                 <td>ロン: 5200<br>ツモ: 1300-2600</td>
               </tr>
               <tr>
-                <th>4翻</th>
+                <th>4飜</th>
                 <td>ツモ: 1300-2600</td>
                 <td>ロン: 6400<br>ツモ: 1600-3200</td>
                 <td colspan="2">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
               </tr>
               <tr>
-                <th>5翻</th>
+                <th>5飜</th>
                 <td colspan="4">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
               </tr>
               <tr>
-                <th>6,7翻</th>
+                <th>6,7飜</th>
                 <td colspan="4">跳満<br> ロン: 12000<br>ツモ: 3000-6000</td>
               </tr>
               <tr>
-                <th>倍満</th>
+                <th>8-10飜</th>
                 <td colspan="4">倍満<br> ロン: 16000<br>ツモ: 4000-8000</td>
               </tr>
+              <tr>
+                <th>11飜以上</th>
+                <td colspan="4">三倍満<br> ロン: 24000<br>ツモ: 6000-12000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="score-box">
+        <div class="score-box-header">
+          <h2>親の点数表</h2>
+          <div class="score-zoom-controls" role="group" aria-label="点数表の拡大率調整">
+            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
+            <input type="range" class="score-zoom-slider" min="0.8" max="1.4" step="0.1" value="1"
+              aria-label="拡大率スライダー">
+            <button type="button" class="score-zoom-button" data-zoom="in" aria-label="拡大">＋</button>
+            <span class="score-zoom-value" aria-live="polite">100%</span>
+          </div>
+        </div>
+        <div class="score-scroll table-scroll">
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th>飜数</th>
+                <th>平和ツモ<br>20符</th>
+                <th>七対子<br>25符</th>
+                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
+                <th>鳴きなしロン<br>(平和以外)<br>40符</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1飜</th>
+                <td>なし</td>
+                <td>なし</td>
+                <td>ロン: 1500<br>ツモ: 500all</td>
+                <td>ロン: 2000<br>ツモ: 700all</td>
+              </tr>
+              <tr>
+                <th>2飜</th>
+                <td>ツモ: 700all</td>
+                <td>ロン: 2400</td>
+                <td>ロン: 2900<br>ツモ: 1000all</td>
+                <td>ロン: 3900<br>ツモ: 1300all</td>
+              </tr>
+              <tr>
+                <th>3飜</th>
+                <td>ツモ: 1300all</td>
+                <td>ロン: 4800<br>ツモ: 1600all</td>
+                <td>ロン: 5800<br>ツモ: 2000all</td>
+                <td>ロン: 7700<br>ツモ: 2600all</td>
+              </tr>
+              <tr>
+                <th>4飜</th>
+                <td>ツモ: 2600all</td>
+                <td>ロン: 9600<br>ツモ: 3200all</td>
+                <td colspan="2">満貫<br>ロン: 12000<br>ツモ: 4000all</td>
+              </tr>
+              <tr>
+                <th>5飜</th>
+                <td colspan="4">満貫<br>ロン: 12000<br>ツモ: 4000all</td>
+              </tr>
+              <tr>
+                <th>6,7飜</th>
+                <td colspan="4">跳満<br> ロン: 18000<br>ツモ: 6000all</td>
+              </tr>
+              <tr>
+                <th>8-10飜</th>
+                <td colspan="4">倍満<br> ロン: 24000<br>ツモ: 8000all</td>
+              </tr>
+              <tr>
+                <th>11飜以上</th>
+                <td colspan="4">三倍満<br> ロン: 32000<br>ツモ: 12000all</td>
+              </tr>
+
             </tbody>
           </table>
         </div>
