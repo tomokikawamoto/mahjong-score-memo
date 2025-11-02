@@ -473,7 +473,7 @@
         <ul class="plain-list">
           <li><span class="list-keyword">平和ツモ</span> → 20符</li>
           <li><span class="list-keyword">七対子</span> → 25符</li>
-          <li><span class="list-keyword">平和以外の門前ロン*</span> → 40符</li>
+          <li><span class="list-keyword">平和,七対子以外の門前ロン*</span> → 40符</li>
           <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
         </ul>
         *基本符の20符と門前ロンの10符で30符あり、平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
@@ -507,11 +507,9 @@
       <div class="score-box">
         <div class="score-box-header">
           <h2>子の点数表</h2>
-          <div class="score-zoom-controls" role="group" aria-label="点数表の拡大率調整">
+          <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
             <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
-            <input type="range" class="score-zoom-slider" min="0.8" max="1.4" step="0.1" value="1"
-              aria-label="拡大率スライダー">
-            <button type="button" class="score-zoom-button" data-zoom="in" aria-label="拡大">＋</button>
+            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
             <span class="score-zoom-value" aria-live="polite">100%</span>
           </div>
         </div>
@@ -523,7 +521,7 @@
                 <th>平和ツモ<br>20符</th>
                 <th>七対子<br>25符</th>
                 <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-                <th>鳴きなしロン<br>(平和以外)<br>40符</th>
+                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
               </tr>
             </thead>
             <tbody>
@@ -577,11 +575,9 @@
       <div class="score-box">
         <div class="score-box-header">
           <h2>親の点数表</h2>
-          <div class="score-zoom-controls" role="group" aria-label="点数表の拡大率調整">
+          <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
             <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
-            <input type="range" class="score-zoom-slider" min="0.8" max="1.4" step="0.1" value="1"
-              aria-label="拡大率スライダー">
-            <button type="button" class="score-zoom-button" data-zoom="in" aria-label="拡大">＋</button>
+            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
             <span class="score-zoom-value" aria-live="polite">100%</span>
           </div>
         </div>
@@ -593,7 +589,7 @@
                 <th>平和ツモ<br>20符</th>
                 <th>七対子<br>25符</th>
                 <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-                <th>鳴きなしロン<br>(平和以外)<br>40符</th>
+                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
               </tr>
             </thead>
             <tbody>
@@ -647,67 +643,6 @@
       </div>
     </section>
 
-
-    <section id="result">
-      <div class="result-message" id="result-message"></div>
-
-      <div class="actions">
-        <button id="retry-button" type="button">もう一度練習する</button>
-      </div>
-      <button class="back-to-intro">スタートページに戻る</button>
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th>翻数</th>
-            <th>平和ツモ<br>20符</th>
-            <th>七対子<br>25符</th>
-            <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-            <th>鳴きなしロン<br>(平和以外)<br>40符</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>1翻</th>
-            <td>なし</td>
-            <td>なし</td>
-            <td>ロン: 1000<br>ツモ: 300-500</td>
-            <td>ロン: 1300<br>ツモ: 400-700</td>
-          </tr>
-          <tr>
-            <th>2翻</th>
-            <td>ツモ: 400-700</td>
-            <td>ロン: 1600</td>
-            <td>ロン: 2000<br>ツモ: 500-1000</td>
-            <td>ロン: 2600<br>ツモ: 700-1300</td>
-          </tr>
-          <tr>
-            <th>3翻</th>
-            <td>ツモ: 700-1300</td>
-            <td>ロン: 3200<br>ツモ: 800-1600</td>
-            <td>ロン: 3900<br>ツモ: 1000-2000</td>
-            <td>ロン: 5200<br>ツモ: 1300-2600</td>
-          </tr>
-          <tr>
-            <th>4翻</th>
-            <td>ツモ: 1300-2600</td>
-            <td>ロン: 6400<br>ツモ: 1600-3200</td>
-            <td colspan="2">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
-          </tr>
-          <tr>
-            <th>5翻</th>
-            <td colspan="4">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
-          </tr>
-          <tr>
-            <th>6,7翻</th>
-            <td colspan="4">跳満<br> ロン: 12000<br>ツモ: 3000-6000</td>
-          </tr>
-          <tr>
-            <th>倍満</th>
-            <td colspan="4">倍満<br> ロン: 16000<br>ツモ: 4000-8000</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
 
     <section id="question_tumo_ko" class="section">
       <h2>この手の点数は？</h2>
@@ -789,6 +724,161 @@
       <button class="back-to-intro">スタートページに戻る</button>
     </section>
 
+
+    <section id="result">
+      <div class="result-message" id="result-message"></div>
+
+      <div class="actions">
+        <button id="retry-button" type="button">もう一度練習する</button>
+      </div>
+      <button class="back-to-intro">スタートページに戻る</button>
+      <div class="info-block">
+        <h2>符計算の基本 (点パネなし)</h2>
+        <ul class="plain-list">
+          <li><span class="list-keyword">平和ツモ</span> → 20符</li>
+          <li><span class="list-keyword">七対子</span> → 25符</li>
+          <li><span class="list-keyword">平和,七対子以外の門前ロン</span> → 40符</li>
+          <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
+        </ul> → 切り上げで40符
+      </div>
+      <div class="score-box">
+        <div class="score-box-header">
+          <h2>子の点数表</h2>
+          <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
+            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
+            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
+            <span class="score-zoom-value" aria-live="polite">100%</span>
+          </div>
+        </div>
+        <div class="score-scroll table-scroll">
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th>飜数</th>
+                <th>平和ツモ<br>20符</th>
+                <th>七対子<br>25符</th>
+                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
+                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1飜</th>
+                <td>なし</td>
+                <td>なし</td>
+                <td>ロン: 1000<br>ツモ: 300-500</td>
+                <td>ロン: 1300<br>ツモ: 400-700</td>
+              </tr>
+              <tr>
+                <th>2飜</th>
+                <td>ツモ: 400-700</td>
+                <td>ロン: 1600</td>
+                <td>ロン: 2000<br>ツモ: 500-1000</td>
+                <td>ロン: 2600<br>ツモ: 700-1300</td>
+              </tr>
+              <tr>
+                <th>3飜</th>
+                <td>ツモ: 700-1300</td>
+                <td>ロン: 3200<br>ツモ: 800-1600</td>
+                <td>ロン: 3900<br>ツモ: 1000-2000</td>
+                <td>ロン: 5200<br>ツモ: 1300-2600</td>
+              </tr>
+              <tr>
+                <th>4飜</th>
+                <td>ツモ: 1300-2600</td>
+                <td>ロン: 6400<br>ツモ: 1600-3200</td>
+                <td colspan="2">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
+              </tr>
+              <tr>
+                <th>5飜</th>
+                <td colspan="4">満貫<br>ロン: 8000<br>ツモ: 2000-4000</td>
+              </tr>
+              <tr>
+                <th>6,7飜</th>
+                <td colspan="4">跳満<br> ロン: 12000<br>ツモ: 3000-6000</td>
+              </tr>
+              <tr>
+                <th>8-10飜</th>
+                <td colspan="4">倍満<br> ロン: 16000<br>ツモ: 4000-8000</td>
+              </tr>
+              <tr>
+                <th>11飜以上</th>
+                <td colspan="4">三倍満<br> ロン: 24000<br>ツモ: 6000-12000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="score-box">
+        <div class="score-box-header">
+          <h2>親の点数表</h2>
+          <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
+            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
+            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
+            <span class="score-zoom-value" aria-live="polite">100%</span>
+          </div>
+        </div>
+        <div class="score-scroll table-scroll">
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th>飜数</th>
+                <th>平和ツモ<br>20符</th>
+                <th>七対子<br>25符</th>
+                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
+                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1飜</th>
+                <td>なし</td>
+                <td>なし</td>
+                <td>ロン: 1500<br>ツモ: 500all</td>
+                <td>ロン: 2000<br>ツモ: 700all</td>
+              </tr>
+              <tr>
+                <th>2飜</th>
+                <td>ツモ: 700all</td>
+                <td>ロン: 2400</td>
+                <td>ロン: 2900<br>ツモ: 1000all</td>
+                <td>ロン: 3900<br>ツモ: 1300all</td>
+              </tr>
+              <tr>
+                <th>3飜</th>
+                <td>ツモ: 1300all</td>
+                <td>ロン: 4800<br>ツモ: 1600all</td>
+                <td>ロン: 5800<br>ツモ: 2000all</td>
+                <td>ロン: 7700<br>ツモ: 2600all</td>
+              </tr>
+              <tr>
+                <th>4飜</th>
+                <td>ツモ: 2600all</td>
+                <td>ロン: 9600<br>ツモ: 3200all</td>
+                <td colspan="2">満貫<br>ロン: 12000<br>ツモ: 4000all</td>
+              </tr>
+              <tr>
+                <th>5飜</th>
+                <td colspan="4">満貫<br>ロン: 12000<br>ツモ: 4000all</td>
+              </tr>
+              <tr>
+                <th>6,7飜</th>
+                <td colspan="4">跳満<br> ロン: 18000<br>ツモ: 6000all</td>
+              </tr>
+              <tr>
+                <th>8-10飜</th>
+                <td colspan="4">倍満<br> ロン: 24000<br>ツモ: 8000all</td>
+              </tr>
+              <tr>
+                <th>11飜以上</th>
+                <td colspan="4">三倍満<br> ロン: 32000<br>ツモ: 12000all</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script type="module" src="apps.js"></script>

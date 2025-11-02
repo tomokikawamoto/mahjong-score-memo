@@ -117,14 +117,17 @@ answerButtons.forEach((button) => {
     });
 });
 
-const scoreBox = document.querySelector('.score-box');
-if (scoreBox) {
-    const slider = scoreBox.querySelector('.score-zoom-slider');
-    const valueLabel = scoreBox.querySelector('.score-zoom-value');
-    const zoomButtons = scoreBox.querySelectorAll('.score-zoom-button');
-    const minZoom = parseFloat(slider?.min ?? "0.5");
-    const maxZoom = parseFloat(slider?.max ?? "1.5");
-    const stepZoom = parseFloat(slider?.step ?? "0.1");
+document.querySelectorAll('.score-box').forEach((box) => {
+    const slider = box.querySelector('.score-zoom-slider');
+    const valueLabel = box.querySelector('.score-zoom-value');
+    const shrinkButton = box.querySelector('.score-zoom-button[data-zoom="out"]');
+    const minZoom = parseFloat(slider?.min ?? "0.4");
+    const maxZoom = parseFloat(slider?.max ?? "1");
+    const stepZoom = parseFloat(slider?.step ?? "0.05");
+
+    if (!slider) {
+        return;
+    }
 
     const clampZoom = (value) => Math.min(maxZoom, Math.max(minZoom, value));
     const tolerance = 0.0001;
@@ -134,37 +137,32 @@ if (scoreBox) {
         const baseValue = Number.isFinite(parsed) ? parsed : 1;
         const clamped = clampZoom(baseValue);
         const rounded = Math.round(clamped * 100) / 100;
-        scoreBox.style.setProperty('--score-zoom', rounded);
-        if (slider) {
-            slider.value = rounded.toFixed(1);
-        }
+        box.style.setProperty('--score-zoom', rounded);
+        slider.value = rounded.toFixed(2);
         if (valueLabel) {
             valueLabel.textContent = `${Math.round(rounded * 100)}%`;
         }
-        zoomButtons.forEach((btn) => {
-            if (!btn.dataset.zoom) return;
-            if (btn.dataset.zoom === 'out') {
-                btn.disabled = rounded <= minZoom + tolerance;
-            } else if (btn.dataset.zoom === 'in') {
-                btn.disabled = rounded >= maxZoom - tolerance;
-            }
-        });
+        if (shrinkButton) {
+            shrinkButton.disabled = rounded <= minZoom + tolerance;
+        }
     };
 
-    if (slider) {
-        slider.addEventListener('input', (event) => {
-            updateZoom(event.target.value);
+    slider.addEventListener('input', (event) => {
+        updateZoom(event.target.value);
+    });
+
+    if (shrinkButton) {
+        shrinkButton.addEventListener('click', () => {
+            const current = parseFloat(slider.value);
+            updateZoom(current - stepZoom);
         });
     }
 
-    zoomButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const direction = btn.dataset.zoom;
-            const current = parseFloat(slider?.value ?? "1");
-            const delta = direction === 'in' ? stepZoom : -stepZoom;
-            updateZoom(current + delta);
+    if (valueLabel) {
+        valueLabel.addEventListener('click', () => {
+            updateZoom(1);
         });
-    });
+    }
 
-    updateZoom(parseFloat(slider?.value ?? "1"));
-}
+    updateZoom(parseFloat(slider.value));
+});
