@@ -74,15 +74,18 @@
       margin: 0 0 24px;
       text-align: center;
       line-height: 1.25;
-      /* ↓ここから追加↓ */
+
       display: inline-block;
-      /* 枠が文字の幅に合うように */
+      /* 枠を文字幅に合わせる */
       padding: 0.4em 0.8em;
       border: 3px solid var(--brand);
       border-radius: 12px;
-      background: color-mix(in oklab, var(--brand) 12%, transparent);
-      /* ↑ここまで追加↑ */
+
+      /* ↓ここを普通に書き換えました ↓ */
+      background-color: rgba(27, 117, 187, 0.12);
+      /* var(--brand) が #1b75bb のとき */
     }
+
 
     h2 {
       font-size: clamp(1.2rem, 3.5vw, 1.6rem);
@@ -90,15 +93,15 @@
     }
 
     .intro-summary {
-      background: color-mix(in oklab, var(--muted) 60%, transparent);
-      border: 1px solid color-mix(in oklab, var(--bd) 70%, transparent);
+      /* ↓ シンプルな普通の書き方 ↓ */
+      background-color: var(--muted);
+      border: 1px solid var(--bd);
       border-radius: 14px;
       padding: clamp(18px, 3vw, 26px);
       display: grid;
       gap: 14px;
       line-height: 1.7;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-      /* ほんのり */
     }
 
     /* リード文を強調 */
@@ -310,8 +313,8 @@
     }
 
     .section .question-list {
-      background: color-mix(in oklab, var(--muted) 60%, transparent);
-      border: 1px solid color-mix(in oklab, var(--bd) 70%, transparent);
+      background-color: var(--muted);
+      border: 1px solid var(--bd);
       border-radius: 14px;
       padding: clamp(18px, 3vw, 28px);
       margin-top: 1px;
