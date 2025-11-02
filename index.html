@@ -74,6 +74,14 @@
       margin: 0 0 24px;
       text-align: center;
       line-height: 1.25;
+      /* ↓ここから追加↓ */
+      display: inline-block;
+      /* 枠が文字の幅に合うように */
+      padding: 0.4em 0.8em;
+      border: 3px solid var(--brand);
+      border-radius: 12px;
+      background: color-mix(in oklab, var(--brand) 12%, transparent);
+      /* ↑ここまで追加↑ */
     }
 
     h2 {
@@ -82,10 +90,27 @@
     }
 
     .intro-summary {
+      background: color-mix(in oklab, var(--muted) 60%, transparent);
+      border: 1px solid color-mix(in oklab, var(--bd) 70%, transparent);
+      border-radius: 14px;
+      padding: clamp(18px, 3vw, 26px);
       display: grid;
-      gap: 12px;
+      gap: 14px;
+      line-height: 1.7;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      /* ほんのり */
+    }
+
+    /* リード文を強調 */
+    .intro-summary .lead {
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.4vw, 1.25rem);
+      color: var(--brand-strong);
+    }
+
+    /* 行間など整える */
+    .intro-summary p {
       margin: 0;
-      font-size: clamp(1rem, 2.6vw, 1.1rem);
     }
 
     .intro-summary .lead {
@@ -514,7 +539,7 @@
           <li><span class="list-keyword">平和,七対子以外の門前ロン*</span> → 40符</li>
           <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
         </ul>
-        *基本符の20符と門前ロンの10符で30符あり、平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
+        *基本符の20符と門前ロンの10符で30符あり,平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
       </div>
 
       <div class="actions">
@@ -547,7 +572,8 @@
           <h2>子の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
             <span class="score-zoom-icon" aria-hidden="true">-</span>
-            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60"
+              aria-label="縮尺スライダー">
             <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
@@ -615,7 +641,8 @@
           <h2>親の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
             <span class="score-zoom-icon" aria-hidden="true">-</span>
-            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60"
+              aria-label="縮尺スライダー">
             <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
@@ -798,7 +825,8 @@
           <h2>子の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
             <span class="score-zoom-icon" aria-hidden="true">-</span>
-            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60"
+              aria-label="縮尺スライダー">
             <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
@@ -866,7 +894,8 @@
           <h2>親の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
             <span class="score-zoom-icon" aria-hidden="true">-</span>
-            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60"
+              aria-label="縮尺スライダー">
             <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
