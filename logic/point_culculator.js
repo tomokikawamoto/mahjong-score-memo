@@ -156,7 +156,7 @@ export function calculatePoint(han, fu, winType, seat) {
             if (seat === "親") {
                 point = "18000";
             } else {
-                point = "6000";
+                point = "12000";
             }
         }
     }

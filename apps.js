@@ -20,6 +20,68 @@ const startButton = document.getElementById('start-button');
 const retryButton = document.getElementById('retry-button');
 const answerButtons = document.querySelectorAll('.answer-button');
 
+// シンプルなWeb Audioベースの効果音プレーヤー
+const feedbackPlayer = (() => {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    let context = null;
+
+    const ensureContext = () => {
+        if (!AudioContextClass) {
+            return null;
+        }
+        if (!context) {
+            context = new AudioContextClass();
+        }
+        if (context.state === "suspended" && typeof context.resume === "function") {
+            context.resume();
+        }
+        return context;
+    };
+
+    const sequences = {
+        correct: [
+            { frequency: 880, duration: 0.18, wave: "triangle" },
+            { frequency: 1175, duration: 0.22, wave: "triangle" },
+        ],
+        incorrect: [
+            { frequency: 220, duration: 0.28, wave: "sawtooth" },
+            { frequency: 196, duration: 0.32, wave: "sawtooth" },
+        ],
+    };
+
+    return {
+        play(type) {
+            const ctx = ensureContext();
+            const sequence = sequences[type];
+            if (!ctx || !sequence) {
+                return;
+            }
+
+            let start = ctx.currentTime;
+            sequence.forEach(({ frequency, duration, wave }) => {
+                const oscillator = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                oscillator.type = wave;
+                oscillator.frequency.value = frequency;
+
+                const attack = Math.min(0.04, duration * 0.35);
+                gain.gain.setValueAtTime(0.001, start);
+                gain.gain.exponentialRampToValueAtTime(0.2, start + attack);
+                gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+
+                oscillator.connect(gain);
+                gain.connect(ctx.destination);
+
+                oscillator.start(start);
+                oscillator.stop(start + duration);
+
+                start += duration * 0.8;
+            });
+        }
+    };
+})();
+
 function showSection(section) {
     [
         introSection,
@@ -124,6 +186,8 @@ answerButtons.forEach((button) => {
             resultMessage.textContent = `残念！正解は「${currentPoint.point}」です。`;
             resultMessage.classList.add('failure');
         }
+
+        feedbackPlayer.play(isCorrect ? "correct" : "incorrect");
 
         resultQuestion.innerHTML = currentQuestionHtml;
         resultHan.textContent = `${currentHan}飜`;

@@ -9,11 +9,11 @@ export const YAKU_POOL = {
     "タンヤオ": { name: "タンヤオ", han: 1 },
     "一発": { name: "一発", han: 1 },
     "三色同順": { name: "三色同順", han: 2 },
-    "三色同順(鳴き)": { name: "三色同順", han: 1 },
+    "三色同順(鳴き)": { name: "三色同順(鳴き)", han: 1 },
     "混一色": { name: "混一色", han: 3 },
-    "混一色(鳴き)": { name: "混一色", han: 3 },
+    "混一色(鳴き)": { name: "混一色(鳴き)", han: 2 },
     "一気通貫": { name: "一気通貫", han: 2 },
-    "一気通貫(鳴き)": { name: "一気通貫", han: 1 },
+    "一気通貫(鳴き)": { name: "一気通貫(鳴き)", han: 1 },
     "七対子": { name: "七対子", han: 2 },
     "ドラ0": { name: "ドラなし", han: 0 },
     "ドラ1": { name: "ドラ1", han: 1 },
@@ -34,7 +34,7 @@ export function makeHand() {
 
     const list = [];
     if (state === "鳴き手") {
-        if (chance(0.5)) {
+        if (chance(0.1)) {
             list.push(YAKU_POOL["タンヤオ"]);
             if (chance(1 / 5)) list.push(YAKU_POOL["三色同順(鳴き)"]);
         }
@@ -45,13 +45,9 @@ export function makeHand() {
             list.push(YAKU_POOL["役牌"]);
             if (chance(1 / 5)) list.push(YAKU_POOL["役牌"]);
             if (chance(1 / 5)) list.push(YAKU_POOL["一気通貫(鳴き)"]);
-            const dora = pickOne([
-                YAKU_POOL["ドラ0"],
-                YAKU_POOL["ドラ1"],
-                YAKU_POOL["ドラ2"],
-                YAKU_POOL["ドラ3"]]);
         }
-    } else {
+    }
+    else {
         if (chance(4 / 5)) {
             list.push({ name: "立直", han: 1 });
             if (chance(1 / 5)) list.push({ name: "一発", han: 1 });
