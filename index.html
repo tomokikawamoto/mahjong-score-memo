@@ -78,6 +78,54 @@
       margin: 0 0 16px;
     }
 
+    .intro-summary {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 28px;
+      font-size: clamp(1rem, 2.6vw, 1.1rem);
+    }
+
+    .intro-summary .lead {
+      font-weight: 600;
+      font-size: clamp(1.05rem, 3vw, 1.2rem);
+    }
+
+    .info-block {
+      background: color-mix(in oklab, var(--muted) 55%, transparent);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 18px clamp(16px, 3vw, 24px);
+      display: grid;
+      gap: 12px;
+      margin: 0 0 24px;
+    }
+
+    .info-block h2 {
+      margin: 0;
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+    }
+
+    .plain-list {
+      margin: 0;
+      padding-left: 1.2em;
+      display: grid;
+      gap: 8px;
+      font-size: clamp(1rem, 2.7vw, 1.1rem);
+    }
+
+    .plain-list li {
+      line-height: 1.5;
+    }
+
+    .list-keyword {
+      font-weight: 600;
+      color: var(--brand-strong, var(--brand));
+    }
+
+    .info-block:last-of-type {
+      margin-bottom: 0;
+    }
+
     .actions {
       text-align: center;
       margin: 24px 0;
@@ -271,35 +319,46 @@
     <h1>麻雀点数計算速習アプリ</h1>
 
     <section id="intro" class="active">
-      <p>点パネ(符ハネ)なしのケース限定の点数計算練習アプリです。
-        <br>実践で登場する8~9割の和了り形の点数計算に対応しています。(作者の体感)
-        <br>点パネありのケースは典型例はページ下部に載せています。</b>
-      </p>
-      <h2>符計算の方法(点パネなしのケース)</h2>
-      <ul>
-        <li>平和ツモ→20符</li>
-        <li>七対子→25符</li>
-        <li>平和以外の門前ロン→40符</li>
-        <li>それ以外→30符</li>
-      </ul>
+      <div class="intro-summary">
+        <p class="lead">点パネ(符ハネ)なしのケース限定で使える点数計算練習アプリです。</p>
+        <p>実践で頻出する和了り形の8〜9割に対応しています。(作者の体感)</p>
+        <p>点パネありの代表的なケースはページ下部のまとめで参照できます。</p>
+      </div>
+
+      <div class="info-block">
+        <h2>符計算の基本 (点パネなし)</h2>
+        <ul class="plain-list">
+          <li><span class="list-keyword">平和ツモ</span> → 20符</li>
+          <li><span class="list-keyword">七対子</span> → 25符</li>
+          <li><span class="list-keyword">平和以外の門前ロン</span> → 40符</li>
+          <li><span class="list-keyword">それ以外</span> → 30符</li>
+        </ul>
+      </div>
+
       <div class="actions">
         <button id="start-button" type="button">練習スタート</button>
       </div>
-      <h2>補足1: 覚え方のコツ</h2>
-      <ul>
-        <li>符や飜が2倍になると点数が(だいたい)2倍になる</li>
-        <li>親の場合は子の場合の(だいたい)1.5倍の点数になる</li>
-      </ul>
-      <h2>補足2: 典型的な点パネのパターン</h2>
-      <ul>
-        <li>19字牌の暗槓(+32符)</li>
-        <li>19字牌の明槓(+16符)</li>
-        <li>2~8数牌の暗槓(+16符)</li>
-        <li>19字牌の暗刻(+8符)+任意の牌の暗刻(+4符 or 8符)</li>
-        <li>19字牌の暗刻(+8符)+19字牌の明刻(+4符)</li>
-        <li>19字牌の暗刻(+8符)+愚形(+2符)+ツモ(+2符)</li>
-        <li>19字牌の明刻(+4符)×2+愚形(+2符)+ツモ(+2符)</li>
-      </ul>
+
+      <div class="info-block">
+        <h2>補足1: 覚え方のコツ</h2>
+        <ul class="plain-list">
+          <li>符や飜が2倍になると点数も(だいたい)2倍になる</li>
+          <li>親の点数は子のおよそ1.5倍になる</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h2>補足2: 代表的な点パネパターン</h2>
+        <ul class="plain-list">
+          <li>19字牌の暗槓 (+32符)</li>
+          <li>19字牌の明槓 (+16符)</li>
+          <li>2〜8数牌の暗槓 (+16符)</li>
+          <li>19字牌の暗刻 (+8符) + 任意の牌の暗刻 (+4符 or +8符)</li>
+          <li>19字牌の暗刻 (+8符) + 19字牌の明刻 (+4符)</li>
+          <li>19字牌の暗刻 (+8符) + 愚形 (+2符) + ツモ (+2符)</li>
+          <li>19字牌の明刻 (+4符) ×2 + 愚形 (+2符) + ツモ (+2符)</li>
+        </ul>
+      </div>
     </section>
 
 
