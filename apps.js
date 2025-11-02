@@ -138,7 +138,7 @@ function startNewQuiz() {
     currentHan = calcHan(currentHand);
     currentHandstate = currentHand.state.state;
     currentWinType = currentHand.state.winType;
-    currentSeat = chance(0.25) ? "親" : "子";
+    currentSeat = chance(0.4) ? "親" : "子";
     currentPoint = calculatePoint(currentHan, currentFu, currentWinType, currentSeat);
 
     // どちらのセクションか決める
