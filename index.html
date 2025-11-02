@@ -104,7 +104,7 @@
     }
 
     .score-box {
-      --score-zoom: 1;
+      --score-zoom: 0.6;
       background: color-mix(in oklab, var(--muted) 55%, transparent);
       border: 1px solid color-mix(in oklab, var(--bd) 75%, transparent);
       border-radius: 16px;
@@ -128,7 +128,7 @@
     }
 
     .score-zoom-controls {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
       background: color-mix(in oklab, var(--card) 70%, transparent);
@@ -138,33 +138,9 @@
       font-size: 0.95rem;
     }
 
-    .score-zoom-button {
-      appearance: none;
-      border: 0;
-      background: var(--brand);
-      color: #fff;
-      border-radius: 999px;
-      width: 32px;
-      height: 32px;
-      display: grid;
-      place-items: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .score-zoom-button:hover {
-      background: var(--brand-strong);
-    }
-
-    .score-zoom-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
     .score-zoom-slider {
       appearance: none;
-      width: clamp(120px, 20vw, 180px);
+      width: clamp(130px, 22vw, 200px);
       height: 6px;
       border-radius: 3px;
       background: color-mix(in oklab, var(--bd) 70%, transparent);
@@ -191,16 +167,18 @@
       box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand) 60%, transparent);
     }
 
-    .score-zoom-button:focus-visible,
     .score-zoom-slider:focus-visible {
       outline: 2px solid var(--brand);
       outline-offset: 2px;
     }
 
-    .score-zoom-value {
-      min-width: 3.5ch;
-      text-align: right;
-      font-variant-numeric: tabular-nums;
+    .score-zoom-icon {
+      font-size: 0.95rem;
+      line-height: 1;
+      opacity: 0.7;
+      user-select: none;
+      letter-spacing: 0.08em;
+      pointer-events: none;
     }
 
     .score-scroll {
@@ -568,9 +546,9 @@
         <div class="score-box-header">
           <h2>子の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
-            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
-            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
-            <span class="score-zoom-value" aria-live="polite">100%</span>
+            <span class="score-zoom-icon" aria-hidden="true">-</span>
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
         <div class="score-scroll table-scroll">
@@ -636,9 +614,9 @@
         <div class="score-box-header">
           <h2>親の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
-            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
-            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
-            <span class="score-zoom-value" aria-live="polite">100%</span>
+            <span class="score-zoom-icon" aria-hidden="true">-</span>
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
         <div class="score-scroll table-scroll">
@@ -819,9 +797,9 @@
         <div class="score-box-header">
           <h2>子の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
-            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
-            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
-            <span class="score-zoom-value" aria-live="polite">100%</span>
+            <span class="score-zoom-icon" aria-hidden="true">-</span>
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
         <div class="score-scroll table-scroll">
@@ -887,9 +865,9 @@
         <div class="score-box-header">
           <h2>親の点数表</h2>
           <div class="score-zoom-controls" role="group" aria-label="点数表の縮尺調整">
-            <button type="button" class="score-zoom-button" data-zoom="out" aria-label="縮小">−</button>
-            <input type="range" class="score-zoom-slider" min="0.4" max="1" step="0.05" value="1" aria-label="縮尺スライダー">
-            <span class="score-zoom-value" aria-live="polite">100%</span>
+            <span class="score-zoom-icon" aria-hidden="true">-</span>
+            <input type="range" class="score-zoom-slider" min="0.2" max="1" step="0.05" value="0.60" aria-label="縮尺スライダー">
+            <span class="score-zoom-icon" aria-hidden="true">+</span>
           </div>
         </div>
         <div class="score-scroll table-scroll">
