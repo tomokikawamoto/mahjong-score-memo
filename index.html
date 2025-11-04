@@ -534,21 +534,22 @@
     <section id="intro" class="active">
       <div class="intro-summary">
         <p class="lead">点パネ(符ハネ)なしの点数計算練習アプリです。</p>
-        <p>実戦で登場する形のおよそ8割に対応しています。
+        <p>実戦で登場する形の8割以上に対応していると思います。
           <br>
-          点パネの代表的なケースはページ下部のまとめで参照できます。
+          点パネの代表的なケースはページ下部に記載したので適宜参考にしてください。
         </p>
       </div>
 
       <div class="info-block">
-        <h2>符計算の基本 (点パネなし)</h2>
+        <h2>符計算の方法(点パネなしの場合)</h2>
         <ul class="plain-list">
           <li><span class="list-keyword">平和ツモ</span> → 20符</li>
           <li><span class="list-keyword">七対子</span> → 25符</li>
-          <li><span class="list-keyword">平和,七対子以外の門前ロン*</span> → 40符</li>
-          <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
+          <li><span class="list-keyword">平和/七対子以外の門前ロン*</span> → 40符</li>
+          <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 平和/七対子以外の門前ツモ)</span> → 30符</li>
         </ul>
-        *基本符の20符と門前ロンの10符で30符あり,平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。 → 切り上げで40符
+        *基本符の20符と門前ロンの10符で30符あり,平和以外のアガリ形では必ず2符以上加算されるため合計で32符以上となる。
+        → 切り上げで40符(このアプリではこのケースを点パネと呼ばない)
       </div>
 
       <div class="actions">
@@ -574,6 +575,12 @@
           <li>19字牌の暗刻 (+8符) + 愚形 (+2符) + ツモ (+2符)</li>
           <li>19字牌の明刻 (+4符) ×2 + 愚形 (+2符) + ツモ (+2符)</li>
         </ul>
+        <p style="margin-top: 8px;">
+          ポイント: <strong style="color: var(--brand)">カン</strong>,
+          <strong style="color: var(--brand)">字牌アンコ</strong>,
+          <strong style="color: var(--brand)">19字牌ポン×2</strong>
+          があるときは点パネに注意しましょう
+        </p>
       </div>
 
       <div class="score-box">
@@ -592,9 +599,9 @@
               <tr>
                 <th>飜数</th>
                 <th>平和ツモ<br>20符</th>
-                <th>七対子<br>25符</th>
-                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
+                <th>七対子ツモ/ロン<br>25符</th>
+                <th>鳴き手ツモ/ロン, 平和ロン,<br>平和/七対子以外の門前ツモ<br>30符</th>
+                <th>平和/七対子以外の門前ロン<br>40符</th>
               </tr>
             </thead>
             <tbody>
@@ -661,9 +668,9 @@
               <tr>
                 <th>飜数</th>
                 <th>平和ツモ<br>20符</th>
-                <th>七対子<br>25符</th>
-                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
+                <th>七対子ツモ/ロン<br>25符</th>
+                <th>鳴き手ツモ/ロン, 平和ロン,<br>平和/七対子以外の門前ツモ<br>30符</th>
+                <th>平和/七対子以外の門前ロン<br>40符</th>
               </tr>
             </thead>
             <tbody>
@@ -825,8 +832,8 @@
         <ul class="plain-list">
           <li><span class="list-keyword">平和ツモ</span> → 20符</li>
           <li><span class="list-keyword">七対子</span> → 25符</li>
-          <li><span class="list-keyword">平和,七対子以外の門前ロン</span> → 40符</li>
-          <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 門前ツモ)</span> → 30符</li>
+          <li><span class="list-keyword">平和/七対子以外の門前ロン</span> → 40符</li>
+          <li><span class="list-keyword">それ以外(平和ロン, 鳴き手, 平和/七対子以外の門前ツモ)</span> → 30符</li>
         </ul>
       </div>
       <div class="score-box">
@@ -845,9 +852,9 @@
               <tr>
                 <th>飜数</th>
                 <th>平和ツモ<br>20符</th>
-                <th>七対子<br>25符</th>
-                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
+                <th>七対子ツモ/ロン<br>25符</th>
+                <th>鳴き手ツモ/ロン, 平和ロン,<br>平和/七対子以外の門前ツモ<br>30符</th>
+                <th>平和/七対子以外の門前ロン<br>40符</th>
               </tr>
             </thead>
             <tbody>
@@ -914,9 +921,9 @@
               <tr>
                 <th>飜数</th>
                 <th>平和ツモ<br>20符</th>
-                <th>七対子<br>25符</th>
-                <th>鳴き手ロン/ツモ<br>または平和ロン<br>30符</th>
-                <th>鳴きなしロン<br>(平和,七対子以外)<br>40符</th>
+                <th>七対子ツモ/ロン<br>25符</th>
+                <th>鳴き手ツモ/ロン, 平和ロン,<br>平和/七対子以外の門前ツモ<br>30符</th>
+                <th>平和/七対子以外の門前ロン<br>40符</th>
               </tr>
             </thead>
             <tbody>

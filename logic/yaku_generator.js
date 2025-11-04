@@ -12,6 +12,8 @@ export const YAKU_POOL = {
     "三色同順(鳴き)": { name: "三色同順(鳴き)", han: 1 },
     "混一色": { name: "混一色", han: 3 },
     "混一色(鳴き)": { name: "混一色(鳴き)", han: 2 },
+    "清一色": { name: "清一色", han: 6 },
+    "清一色(鳴き)": { name: "清一色(鳴き)", han: 5 },
     "一気通貫": { name: "一気通貫", han: 2 },
     "一気通貫(鳴き)": { name: "一気通貫(鳴き)", han: 1 },
     "七対子": { name: "七対子", han: 2 },
@@ -28,34 +30,41 @@ export function makeHand() {
 
     const dora = pickOne([
         YAKU_POOL["ドラ0"],
+        YAKU_POOL["ドラ0"],
+        YAKU_POOL["ドラ1"],
+        YAKU_POOL["ドラ1"],
+        YAKU_POOL["ドラ1"],
         YAKU_POOL["ドラ1"],
         YAKU_POOL["ドラ2"],
-        YAKU_POOL["ドラ3"]]);
+        YAKU_POOL["ドラ3"]
+    ]);
 
     const list = [];
     if (state === "鳴き手") {
-        if (chance(0.5)) {
+        if (chance(1 / 2)) {
             list.push(YAKU_POOL["タンヤオ"]);
             if (chance(1 / 5)) list.push(YAKU_POOL["三色同順(鳴き)"]);
         }
-        else {
+        if (chance(1 / 20)) {
+            list.push(YAKU_POOL["清一色(鳴き)"]);
+        } else {
             if (chance(1 / 5)) {
                 list.push(YAKU_POOL["混一色(鳴き)"]);
             }
             list.push(YAKU_POOL["役牌"]);
             if (chance(1 / 5)) list.push(YAKU_POOL["役牌"]);
-            if (chance(1 / 5)) list.push(YAKU_POOL["一気通貫(鳴き)"]);
+            if (chance(1 / 10)) list.push(YAKU_POOL["一気通貫(鳴き)"]);
         }
     }
     else {
         if (chance(4 / 5)) {
             list.push({ name: "立直", han: 1 });
-            if (chance(1 / 5)) list.push({ name: "一発", han: 1 });
+            if (chance(1 / 10)) list.push({ name: "一発", han: 1 });
         }
         if (state === "門前" && winType === "ツモ") list.push(YAKU_POOL["ツモ"]);
-        if (chance(4 / 10)) {
+        if (chance(2 / 5)) {
             list.push(YAKU_POOL["平和"]);
-            if (chance(1 / 3)) list.push(YAKU_POOL["タンヤオ"]);
+            if (chance(1 / 4)) list.push(YAKU_POOL["タンヤオ"]);
             if (chance(1 / 10)) list.push(YAKU_POOL["三色同順"]);
             if (chance(1 / 10)) list.push(YAKU_POOL["一気通貫"]);
         } else if (chance(2 / 10)) {
@@ -64,7 +73,7 @@ export function makeHand() {
         }
         if (list.length === 0) {
             list.push({ name: "立直", han: 1 });
-            if (chance(1 / 5)) list.push({ name: "一発", han: 1 });
+            if (chance(1 / 10)) list.push({ name: "一発", han: 1 });
             if (chance(1 / 10)) list.push(YAKU_POOL["三色同順"]);
             if (chance(1 / 10)) list.push(YAKU_POOL["一気通貫"]);
         }
