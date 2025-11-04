@@ -45,7 +45,7 @@ export function makeHand() {
             list.push(YAKU_POOL["タンヤオ"]);
             if (chance(1 / 5)) list.push(YAKU_POOL["三色同順(鳴き)"]);
         }
-        if (chance(1 / 20)) {
+        else if (chance(1 / 20)) {
             list.push(YAKU_POOL["清一色(鳴き)"]);
         } else {
             if (chance(1 / 5)) {
